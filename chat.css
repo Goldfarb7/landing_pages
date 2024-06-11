@@ -180,7 +180,6 @@ body{
 }
 #chat-container{
     position: relative;
-    border:solid 1px grey;
     width:100%;
     margin:10px auto;
 }
