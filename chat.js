@@ -88,7 +88,7 @@ async function chat(key, inResponseOf=null){
                 <div class="msgContainer">
                     <div class="msgDiv"><span class="user-msg">${inResponseOf}</span></div>
                 </div>
-                <img class="user-img" src="/static/images/user.png" alt="user image">
+                <img class="user-img" src="https://cdn.jsdelivr.net/gh/Goldfarb7/landing_pages/user.png" alt="user image">
             </div>
         `
   }
@@ -97,7 +97,7 @@ async function chat(key, inResponseOf=null){
   let jadeId;
   for (const msg of msgs){
     scrollToBottom(); //scrolling to bottom
-    await delay(100);
+    await delay(1000);
     
      //if element is a string
      if(typeof(msg) === "string"){
@@ -105,7 +105,7 @@ async function chat(key, inResponseOf=null){
         jadeId = generateRandomString(10);
         targetDiv.innerHTML+=`
             <div class="msg-container">
-                <img class="jade" id="${jadeId}" src="/static/images/jade.jpg" alt="bot image">
+                <img class="jade" id="${jadeId}" src="https://cdn.jsdelivr.net/gh/Goldfarb7/landing_pages/jade.jpg" alt="bot image">
                 <div class="msgContainer">
                     <div class="msgDiv"><span class="msg">${msg}</span></div>
                 </div>
@@ -116,7 +116,7 @@ async function chat(key, inResponseOf=null){
             // updateJade()
             targetDiv.innerHTML+=`
                 <div class="msg-container">
-                    <img class="jade" src="/static/images/jade.jpg" alt="bot image">
+                    <img class="jade" src="https://cdn.jsdelivr.net/gh/Goldfarb7/landing_pages/jade.jpg" alt="bot image">
                     <div class="msgContainer">
                        <div class="msg">
                           ${createButtons(msg)}
@@ -215,6 +215,16 @@ function scrollToBottom() {
 
 
 chat("default")
+
+
+
+
+
+
+
+
+
+
 
 
 
