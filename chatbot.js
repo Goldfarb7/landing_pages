@@ -109,9 +109,15 @@ const DB= {
 }
 
 
-
+const mobileNo = 454334658;
 
 async function chat(key, inResponseOf=null){
+ 
+  if(key === "callMe"){
+    return window.open("tel://"+mobileNo);
+  }
+
+
   let targetDiv = document.getElementById("chat");
   typing(show=true); //showing typing animation
   let msgs = DB[key]; //reading msgs from Db
@@ -162,7 +168,7 @@ async function chat(key, inResponseOf=null){
 
     if (index === msgs.length - 1) {
         //This is the last iteration.
-        console.log("last id", jadeId);
+        // console.log("last id", jadeId);
         document.getElementById(jadeId).style.visibility="visible";
       }
 
@@ -233,7 +239,15 @@ function scrollToBottom() {
 }
 
 
+
 chat("default")
+
+
+
+
+
+
+
 
 
 
