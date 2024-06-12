@@ -235,11 +235,3 @@ function scrollToBottom() {
 
 chat("default")
 
-
-
-
-
-
-
-
-
