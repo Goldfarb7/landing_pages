@@ -107,11 +107,13 @@ h4{font-weight: 400;}
     /* border:solid 1px green; */
 }
 .reply-container{
+    /* width:100%; */
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
     gap:4px;
     margin:10px;
+    /* border:solid 1px green; */
 }
 .jade{
     width:35px;
@@ -153,12 +155,13 @@ h4{font-weight: 400;}
 
 .btn{
     border:none;
-    padding:15px 40px;
+    padding:15px 30px;
     margin:4px;
     color:white;
-    font-size: 18px;
+    font-size: 15px;
     cursor:pointer;
     border-radius: 30px;
+    text-align: left;
 }
 .btn:hover{opacity: 0.8;}
 .blue{
@@ -185,8 +188,14 @@ body{
 }
 
 .msg, .user-msg{
-    max-width: 70%;
+    max-width: 80%;
 }
+
+.reply-container{
+    width:100%;
+    justify-content: right;
+}
+
 
 }
 
