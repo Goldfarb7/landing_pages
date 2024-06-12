@@ -133,7 +133,7 @@ async function chat(key, inResponseOf=null){
   let jadeId;
   for (const msg of msgs){
     scrollToBottom(); //scrolling to bottom
-    await delay(100);
+    await delay(1000);
     
      //if element is a string
      if(typeof(msg) === "string"){
