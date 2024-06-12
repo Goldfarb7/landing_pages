@@ -1,72 +1,108 @@
 
 const DB= {
     default: [
-        "Hi👋",
-        "I’m Jade from The Debt Bureau.",
-        "Want to find out if you qualify to write off 50% of your credit card debt? Tap Yes!👇",
+        "Hi 👋",
+        "I’m Jane from Claim Injury Funds.",
+        "Want to find out how much you’re entitled to? Tap Yes! 👇",
         {
-            Yes:{color:"blue",next:"yes1"}
+            1: {color:"blue", next:"yes1", text:"Yes"}
         }
     ],
 
     yes1: [
         "Okay great. Let me ask you 3 quick questions.",
-        "Do you have over $15,000 in credit card debt? Tap Yes or No.",
+        "Were you physically injured in an automobile accident?",
         {
-            Yes:{color:"blue",next:"yes2"},
-            No:{color:"blue",next:"no2"}
+            1: {color:"blue", next:"yes2", text:"Yes"},
+            2: {color:"blue", next:"no2", text:"No"}
         }
     ],
 
     yes2: [
-        "Are you an American citizen?",
+        "When did the accident occur?",
         {
-            Yes:{color:"blue",next:"yes3"},
-            No:{color:"blue",next:"no3"}
+            1: {color:"blue",next:"yes3", text:"Within 1 Month"},
+            2: {color:"blue",next:"yes3", text:"Within 1 Year"},
+            3: {color:"blue",next:"yes3", text:"Within 2 Years"},
+            4: {color:"blue",next:"yes3", text:"More Than 2 Years Ago"}
         }
     ],
 
     no2: [
-        "Are you an American citizen?",
+        "When did the accident occur?",
         {
-            Yes:{color:"blue",next:"yes3"},
-            No:{color:"blue",next:"no3"}
+            1: {color:"blue",next:"yes3", text:"Within 1 Month"},
+            2: {color:"blue",next:"yes3", text:"Within 1 Year"},
+            3: {color:"blue",next:"yes3", text:"Within 2 Years"},
+            4: {color:"blue",next:"yes3", text:"More Than 2 Years Ago"}
         }
     ],
 
     yes3: [
-        "Are you keeping up with your Minimum Payments? Tap Yes or No.",
+        "Did the accident cause hospitalization, medical treatment, surgery or missed work?",
         {
-            Yes:{color:"blue",next:"yes4"},
-            No:{color:"blue",next:"no4"}
-        }
-    ],
-
-    no3: [
-        "Are you keeping up with your Minimum Payments? Tap Yes or No.",
-        {
-            Yes:{color:"blue",next:"yes4"},
-            No:{color:"blue",next:"no4"}
+            1: {color:"blue",next:"yes4", text:"Yes"},
+            2: {color:"blue",next:"no4", text:"No"}
         }
     ],
 
     yes4: [
-        "🎉Congratulations!🎁",
-        "You’ve just pre-qualified to write off up to 50% of your credit card debt.",
-        "This will help put $1,000s back in your pocket!",
-        "Tap the number below to speak to one of our friendly experts, to see how much of your credit card debt is eligible for immediate reduction. The call takes less than 15 minutes!",
+        "What best describes your type of injury?",
         {
-            485484343:{color:"green",next:"callMe"},
+            1: {color:"blue",next:"yes5", text:"Traumatic Head Injury"},
+            2: {color:"blue",next:"yes5", text:"Back, Neck, and Soft Tissue Injuries (including Whiplash)"},
+            3: {color:"blue",next:"yes5", text:"Burns and Broken Bones"},
         }
     ],
 
     no4: [
-        "🎉Congratulations!🎁",
-        "You’ve just pre-qualified to write off up to 50% of your credit card debt.",
-        "This will help put $1,000s back in your pocket!",
-        "Tap the number below to speak to one of our friendly experts, to see how much of your credit card debt is eligible for immediate reduction. The call takes less than 15 minutes!",
+        "What best describes your type of injury?",
         {
-            485484343:{color:"green",next:"callMe"},
+            1: {color:"blue",next:"yes5", text:"Traumatic Head Injury"},
+            2: {color:"blue",next:"yes5", text:"Back, Neck, and Soft Tissue Injuries (including Whiplash)"},
+            3: {color:"blue",next:"yes5", text:"Burns and Broken Bones"},
+        }
+    ],
+
+    yes5: [
+        "What best describes the severity of your injuries?",
+        {
+            1: {color:"blue",next:"yes6", text:"Minor to Moderate"},
+            2: {color:"blue",next:"yes6", text:"Severe"},
+            3: {color:"blue",next:"yes6", text:"Critical to Life-threatening"},
+        }
+    ],
+
+    yes6: [
+        "Was a police report filed?",
+        {
+            1: {color:"blue",next:"yes7", text:"Yes"},
+            2: {color:"blue",next:"yes7", text:"No"},
+        }
+    ],
+
+    yes7: [
+        "Were you at fault for the accident?",
+        {
+            1: {color:"blue",next:"yes8", text:"Yes, the accident was my fault"},
+            2: {color:"blue",next:"yes8", text:"No, the accident was not my fault"},
+        }
+    ],
+
+    yes8: [
+        "Is an attorney helping you with your claim or have you already received compensation?",
+        {
+            1: {color:"blue",next:"yes9", text:"Yes"},
+            2: {color:"blue",next:"yes9", text:"No"},
+        }
+    ],
+
+    yes9: [
+        "🎉Congratulations! 🎁",
+        "It looks like based on the info you submitted your accident may qualify for compensation!",
+        "Tap the number below to speak to one of our friendly experts for more information on your free case evaluation.. The call takes less than 15 minutes!",
+        {
+            1: {color:"green",next:"callMe", text:"(843)454334658"},
         }
     ],
 
@@ -97,11 +133,10 @@ async function chat(key, inResponseOf=null){
   let jadeId;
   for (const msg of msgs){
     scrollToBottom(); //scrolling to bottom
-    await delay(1000);
+    await delay(100);
     
      //if element is a string
      if(typeof(msg) === "string"){
-        // updateJade()
         jadeId = generateRandomString(10);
         targetDiv.innerHTML+=`
             <div class="msg-container">
@@ -113,7 +148,6 @@ async function chat(key, inResponseOf=null){
         `
      }
      else if(typeof(msg) === "object"){
-            // updateJade()
             targetDiv.innerHTML+=`
                 <div class="msg-container">
                     <img class="jade" src="https://cdn.jsdelivr.net/gh/Goldfarb7/landing_pages/jade.jpg" alt="bot image">
@@ -145,22 +179,11 @@ async function chat(key, inResponseOf=null){
 function createButtons(msg){
     s = ""
     Object.keys(msg).forEach(key => {
-        s+=`<button onclick="chat('${msg[key]['next']}', inResponseOf='${key}')" class="${msg[key]['color']} btn">
-               ${key}
+        s+=`<button onclick="chat('${msg[key]['next']}', inResponseOf='${msg[key]['text']}')" class="${msg[key]['color']} btn">
+               ${msg[key]['text']}
             </button> `
       });
     return s
-}
-
-
-
-
-function updateJade(){
-    //to hide all jade/bot images so that only latest msg have image icon
-    // let jadeImgs = Array.from(document.getElementById("chat").getElementsByClassName("jade"));
-    // jadeImgs.forEach(img=>{
-    //     img.style.visibility="hidden"
-    // })
 }
 
 
@@ -173,10 +196,6 @@ function generateRandomString(length) {
 
 function typing(show=true){
     if(show){
-        // let jadeImgs = Array.from(document.getElementById("chat").getElementsByClassName("jade"));
-        // jadeImgs.forEach(img=>{
-        //     img.style.visibility="hidden"
-        // });
         document.getElementById('typing-container').style.display="flex"
     }
     else{
