@@ -10,8 +10,8 @@ const DB= {
     ],
 
     yes1: [
-        "Okay great. Let me ask you 3 quick questions.",
-        "Were you physically injured in an automobile accident?",
+        "Let me ask you a few quick questions to get started",
+        "<b>Were you physically injured in an automobile accident?</b>",
         {
             1: {color:"blue", next:"yes2", text:"Yes"},
             2: {color:"blue", next:"no2", text:"No"}
@@ -19,7 +19,7 @@ const DB= {
     ],
 
     yes2: [
-        "When did the accident occur?",
+        "<b>When did the accident occur?</b>",
         {
             1: {color:"blue",next:"yes3", text:"Within 1 Month"},
             2: {color:"blue",next:"yes3", text:"Within 1 Year"},
@@ -29,7 +29,7 @@ const DB= {
     ],
 
     no2: [
-        "When did the accident occur?",
+        "<b>When did the accident occur?</b>",
         {
             1: {color:"blue",next:"yes3", text:"Within 1 Month"},
             2: {color:"blue",next:"yes3", text:"Within 1 Year"},
@@ -39,7 +39,7 @@ const DB= {
     ],
 
     yes3: [
-        "Did the accident cause hospitalization, medical treatment, surgery or missed work?",
+        "<b>Did the accident cause hospitalization, medical treatment, surgery or missed work?</b>",
         {
             1: {color:"blue",next:"yes4", text:"Yes"},
             2: {color:"blue",next:"no4", text:"No"}
@@ -47,7 +47,7 @@ const DB= {
     ],
 
     yes4: [
-        "What best describes your type of injury?",
+        "<b>What best describes your type of injury?</b>",
         {
             1: {color:"blue",next:"yes5", text:"Traumatic Head Injury"},
             2: {color:"blue",next:"yes5", text:"Back, Neck, and Soft Tissue Injuries (including Whiplash)"},
@@ -56,7 +56,7 @@ const DB= {
     ],
 
     no4: [
-        "What best describes your type of injury?",
+        "<b>What best describes your type of injury?</b>",
         {
             1: {color:"blue",next:"yes5", text:"Traumatic Head Injury"},
             2: {color:"blue",next:"yes5", text:"Back, Neck, and Soft Tissue Injuries (including Whiplash)"},
@@ -65,7 +65,7 @@ const DB= {
     ],
 
     yes5: [
-        "What best describes the severity of your injuries?",
+        "<b>What best describes the severity of your injuries?</b>",
         {
             1: {color:"blue",next:"yes6", text:"Minor to Moderate"},
             2: {color:"blue",next:"yes6", text:"Severe"},
@@ -74,7 +74,7 @@ const DB= {
     ],
 
     yes6: [
-        "Was a police report filed?",
+        "<b>Was a police report filed?</b>",
         {
             1: {color:"blue",next:"yes7", text:"Yes"},
             2: {color:"blue",next:"yes7", text:"No"},
@@ -82,7 +82,7 @@ const DB= {
     ],
 
     yes7: [
-        "Were you at fault for the accident?",
+        "<b>Were you at fault for the accident?</b>",
         {
             1: {color:"blue",next:"yes8", text:"Yes, the accident was my fault"},
             2: {color:"blue",next:"yes8", text:"No, the accident was not my fault"},
@@ -90,7 +90,7 @@ const DB= {
     ],
 
     yes8: [
-        "Is an attorney helping you with your claim or have you already received compensation?",
+        "<b>Is an attorney helping you with your claim or have you already received compensation?</b>",
         {
             1: {color:"blue",next:"yes9", text:"Yes"},
             2: {color:"blue",next:"yes9", text:"No"},
@@ -98,11 +98,11 @@ const DB= {
     ],
 
     yes9: [
-        "🎉Congratulations! 🎁",
+        "<b>🎉Congratulations! 🎁</b>",
         "It looks like based on the info you submitted your accident may qualify for compensation!",
         "Tap the number below to speak to one of our friendly experts for more information on your free case evaluation.. The call takes less than 15 minutes!",
         {
-            1: {color:"green",next:"callMe", text:"(843)454334658"},
+            1: {color:"green",next:"callMe", text:"<b>(843)454334658</b>"},
         }
     ],
 
@@ -114,6 +114,8 @@ const mobileNo = 454334658;
 async function chat(key, inResponseOf=null){
  
   if(key === "callMe"){
+    gtag_report_conversion(); //Fire google analytics event
+    fbq('track', 'Contact'); //Fire Meta businees event
     return window.open("tel://"+mobileNo);
   }
 
@@ -239,15 +241,21 @@ function scrollToBottom() {
 }
 
 
+// for google analytics event
+function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-16576154023/KyNXCOuhgbsZEKeTkOA9',
+        'event_callback': callback
+    });
+    return false;
+  }
 
 chat("default")
-
-
-
-
-
-
-
 
 
 
