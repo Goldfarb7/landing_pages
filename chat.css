@@ -269,7 +269,7 @@ h4{font-weight: 400;}
 }
 
 .msg, .user-msg{
-    max-width: 80%;
+    max-width: 100%;
 }
 
 .reply-container{
