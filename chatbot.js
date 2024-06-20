@@ -102,21 +102,21 @@ const DB= {
         "It looks like based on the info you submitted your accident may qualify for compensation!",
         "Tap the number below to speak to one of our friendly experts for more information on your free case evaluation.. The call takes less than 15 minutes!",
         {
-            1: {color:"green",next:"callMe", text:"<b>(843)454334658</b>"},
+            1: {color:"green",next:"callMe", text:"<b>+13214858331</b>"},
         }
     ],
 
 }
 
 
-const mobileNo = 454334658;
-
 async function chat(key, inResponseOf=null){
  
   if(key === "callMe"){
     gtag_report_conversion(); //Fire google analytics event
     fbq('track', 'Contact'); //Fire Meta businees event
-    return window.open("tel://"+mobileNo);
+    //setting calling number
+    const mobileNo = document.getElementById("mobile-number").href;
+    return window.open(mobileNo);
   }
 
 
@@ -187,8 +187,11 @@ async function chat(key, inResponseOf=null){
 function createButtons(msg){
     s = ""
     Object.keys(msg).forEach(key => {
+        //button value check (for final button value change i.e. alloted no. by ringba)
+        let btnValue = msg[key]['next'] ==="callMe" ? document.getElementById("mobile-number").href.split(":").pop() : msg[key]['text'];
+        //creating button
         s+=`<button onclick="chat('${msg[key]['next']}', inResponseOf='${msg[key]['text']}')" class="${msg[key]['color']} btn">
-               ${msg[key]['text']}
+               ${btnValue}
             </button> `
       });
     return s
