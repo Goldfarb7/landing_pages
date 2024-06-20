@@ -188,7 +188,7 @@ function createButtons(msg){
     s = ""
     Object.keys(msg).forEach(key => {
         //button value check (for final button value change i.e. alloted no. by ringba)
-        let btnValue = msg[key]['next'] ==="callMe" ? document.getElementById("mobile-number").href.split(":").pop() : msg[key]['text'];
+        let btnValue = msg[key]['next'] ==="callMe" ? document.getElementById("mobile-number").href.split(":").pop().trim() : msg[key]['text'];
         //creating button
         s+=`<button onclick="chat('${msg[key]['next']}', inResponseOf='${msg[key]['text']}')" class="${msg[key]['color']} btn">
                ${btnValue}
