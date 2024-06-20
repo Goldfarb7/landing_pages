@@ -179,6 +179,7 @@ async function chat(key, inResponseOf=null){
   }
   typing(show=false); //hiding typing animation
   scrollToBottom(); //scrolling to bottom
+  customClear(key);
 }
 
 
@@ -257,6 +258,18 @@ function gtag_report_conversion(url) {
     });
     return false;
   }
+
+
+
+function customClear(key){
+    if(key==="yes9"){
+        Array.from(document.getElementsByClassName('btn')).pop().parentElement.style.backgroundColor="transparent";
+    }
+}
+
+
+
+
 
 chat("default")
 
