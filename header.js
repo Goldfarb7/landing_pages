@@ -1,5 +1,5 @@
-<link href="https://use.typekit.net/mrg0hpc.css" rel="stylesheet">
-  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Goldfarb7/landing_pages/chatting.css">
+    <link href="https://use.typekit.net/mrg0hpc.css" rel="stylesheet">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16576154023"></script>
     <script>
@@ -9,7 +9,6 @@
       gtag('config', 'AW-16576154023');
     </script>
 
-      
     <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
@@ -29,7 +28,5 @@
     </noscript>
     <!-- End Meta Pixel Code -->
 
-      
     <!-- ringba code -->
     <script src=//b-js.ringba.com/CA11a361139cb24bf189cef7eed1fb8ce4 async></script>
-
