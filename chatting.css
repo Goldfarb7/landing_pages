@@ -194,7 +194,9 @@ h4{font-weight: 400;}
 .user-img{
     width:35px;
     height:35px;
+    padding:2px;
     border-radius: 50%;
+    border:solid 1px rgb(236, 233, 233);
 }
 .msgContainer{
     display: -webkit-box;
@@ -254,7 +256,22 @@ h4{font-weight: 400;}
 }
 
 
+.cinput-container {
+    padding: 3px 10px;
+    margin: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
 
+.cuser-input {
+    padding: 7px 15px;
+    border-radius: 60px;
+    border: #c2c5c6 solid 2px;
+    font-size: 16px;
+    font-weight:400;
+}
 
 
 @media screen and (max-width: 768px) {
