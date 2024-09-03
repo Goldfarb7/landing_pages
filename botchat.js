@@ -1,3 +1,23 @@
+function getTwoYearsAgoFormatted() {
+    let currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() - 2);
+    
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"
+    ];
+    
+    const day = currentDate.getDate();
+    const year = currentDate.getFullYear();
+    const month = monthNames[currentDate.getMonth()];
+    
+    const suffix = (day % 10 === 1 && day !== 11) ? 'st' :
+                   (day % 10 === 2 && day !== 12) ? 'nd' :
+                   (day % 10 === 3 && day !== 13) ? 'rd' : 'th';
+    
+    return `${month} ${day}${suffix}, ${year}`;
+}
+
 
 const DB= {
     default: [
@@ -11,93 +31,48 @@ const DB= {
 
     yes1: [
         "Let me ask you a few quick questions to get started",
-        "<b>Were you physically injured in an automobile accident?</b>",
+        "<b>Were you injured in an auto accident?</b>",
         {
             1: {color:"blue", next:"yes2", text:"Yes"},
-            2: {color:"blue", next:"no2", text:"No"}
+            2: {color:"blue", next:"yes2", text:"No"}
         }
     ],
 
     yes2: [
-        "<b>When did the accident occur?</b>",
+        `<b>Did your auto accident occur after ${getTwoYearsAgoFormatted()}? </b>`,
         {
-            1: {color:"blue",next:"yes3", text:"Within 1 Month"},
-            2: {color:"blue",next:"yes3", text:"Within 1 Year"},
-            3: {color:"blue",next:"yes3", text:"Within 2 Years"},
-            4: {color:"blue",next:"yes3", text:"More Than 2 Years Ago"}
-        }
-    ],
-
-    no2: [
-        "<b>When did the accident occur?</b>",
-        {
-            1: {color:"blue",next:"yes3", text:"Within 1 Month"},
-            2: {color:"blue",next:"yes3", text:"Within 1 Year"},
-            3: {color:"blue",next:"yes3", text:"Within 2 Years"},
-            4: {color:"blue",next:"yes3", text:"More Than 2 Years Ago"}
+            1: {color:"blue",next:"yes3", text:"Yes"},
+            2: {color:"blue",next:"yes3", text:"No"}
         }
     ],
 
     yes3: [
-        "<b>Did the accident cause hospitalization, medical treatment, surgery or missed work?</b>",
+        "<b>Was the accident your fault?</b>",
         {
             1: {color:"blue",next:"yes4", text:"Yes"},
-            2: {color:"blue",next:"no4", text:"No"}
+            2: {color:"blue",next:"yes4", text:"No"}
         }
     ],
 
     yes4: [
-        "<b>What best describes your type of injury?</b>",
+        "<b>Do you currently have a lawyer?</b>",
         {
-            1: {color:"blue",next:"yes5", text:"Traumatic Head Injury"},
-            2: {color:"blue",next:"yes5", text:"Back, Neck, and Soft Tissue Injuries (including Whiplash)"},
-            3: {color:"blue",next:"yes5", text:"Burns and Broken Bones"},
-        }
-    ],
-
-    no4: [
-        "<b>What best describes your type of injury?</b>",
-        {
-            1: {color:"blue",next:"yes5", text:"Traumatic Head Injury"},
-            2: {color:"blue",next:"yes5", text:"Back, Neck, and Soft Tissue Injuries (including Whiplash)"},
-            3: {color:"blue",next:"yes5", text:"Burns and Broken Bones"},
+            1: {color:"blue",next:"yes5", text:"Yes"},
+            2: {color:"blue",next:"yes5", text:"No"},
+            3: {color:"blue",next:"yes5", text:"Yes, but looking to change"}
         }
     ],
 
     yes5: [
-        "<b>What best describes the severity of your injuries?</b>",
+        "<b>Fill out name and number to see how much your case is worth</b>",
         {
-            1: {color:"blue",next:"yes6", text:"Minor to Moderate"},
-            2: {color:"blue",next:"yes6", text:"Severe"},
-            3: {color:"blue",next:"yes6", text:"Critical to Life-threatening"},
+            1: {color:"blue", html:"<div class='cinput-container'><input id='uname' type='text' placeholder='Your Name' class='cuser-input'> </div>"},
+            2: {color:"blue", html:"<div class='cinput-container'><input id='umobile' type='number' placeholder='Mobile No.' class='cuser-input'> </div>"},
+            3: {color:"blue", next:"yes6", text:"Submit"},
         }
     ],
 
     yes6: [
-        "<b>Was a police report filed?</b>",
-        {
-            1: {color:"blue",next:"yes7", text:"Yes"},
-            2: {color:"blue",next:"yes7", text:"No"},
-        }
-    ],
-
-    yes7: [
-        "<b>Were you at fault for the accident?</b>",
-        {
-            1: {color:"blue",next:"yes8", text:"Yes, the accident was my fault"},
-            2: {color:"blue",next:"yes8", text:"No, the accident was not my fault"},
-        }
-    ],
-
-    yes8: [
-        "<b>Is an attorney helping you with your claim or have you already received compensation?</b>",
-        {
-            1: {color:"blue",next:"yes9", text:"Yes"},
-            2: {color:"blue",next:"yes9", text:"No"},
-        }
-    ],
-
-    yes9: [
         "<b>🎉Congratulations! 🎁</b>",
         "It looks like based on the info you submitted your accident may qualify for compensation!",
         "Tap the number below to speak to one of our friendly experts for more information on your free case evaluation.. The call takes less than 15 minutes!",
@@ -106,10 +81,35 @@ const DB= {
         }
     ],
 
+    // yes9: [
+    //     "<b>🎉Congratulations! 🎁</b>",
+    //     "It looks like based on the info you submitted your accident may qualify for compensation!",
+    //     "Tap the number below to speak to one of our friendly experts for more information on your free case evaluation.. The call takes less than 15 minutes!",
+    //     {
+    //         1: {color:"green",next:"callMe", text:"<b>+13214858331</b>"},
+    //     }
+    // ],
+
 }
 
 
+function submitInfo(){
+   let uname = document.getElementById('uname').value.trim();
+   let umobile = document.getElementById('umobile').value.trim();
+   if(uname.length > 1 && umobile.length > 9){
+     //get user info here
+     return true
+   }
+   else{
+     return false
+   }
+}
+
+
+
 async function chat(key, inResponseOf=null){
+
+  if(!key){return}
  
   if(key === "callMe"){
     gtag_report_conversion(); //Fire google analytics event
@@ -117,6 +117,14 @@ async function chat(key, inResponseOf=null){
     //setting calling number
     const mobileNo = document.getElementById("mobile-number").href;
     return window.open(mobileNo);
+  }
+
+  if(key === "yes6"){
+    let res = submitInfo();
+    if(!res){
+        alert("Enter Valid Details !!!");;
+        return
+    }
   }
 
 
@@ -137,11 +145,12 @@ async function chat(key, inResponseOf=null){
         `
   }
 
+
   let index = 0;
   let jadeId;
   for (const msg of msgs){
     scrollToBottom(); //scrolling to bottom
-    await delay(1000);
+    await delay(100);
     
      //if element is a string
      if(typeof(msg) === "string"){
@@ -181,19 +190,28 @@ async function chat(key, inResponseOf=null){
   scrollToBottom(); //scrolling to bottom
 //   customClear(key);
 }
-
+ 
 
 
 
 function createButtons(msg){
+    // to create button/input response option(s) for user.
     s = ""
     Object.keys(msg).forEach(key => {
         //button value check (for final button value change i.e. alloted no. by ringba)
         let btnValue = msg[key]['next'] ==="callMe" ? "📞&nbsp;" + document.getElementById("mobile-number").href.split(":").pop().trim() : msg[key]['text'];
-        //creating button
-        s+=`<button onclick="chat('${msg[key]['next']}', inResponseOf='${msg[key]['text']}')" class="${msg[key]['color']} btn">
-               ${btnValue}
-            </button> `
+
+        if(msg[key]['text'] != null){
+            //creating button
+            s += `<button onclick="chat('${msg[key]['next']}', inResponseOf='${msg[key]['text']}')" class="${msg[key]['color']} btn">
+                    ${btnValue}
+                 </button> `
+        }
+        if(msg[key]['html'] != null){
+            // inserting HTML element for user response
+            s += ` ${msg[key]['html']} `
+        }
+        
       });
     return s
 }
