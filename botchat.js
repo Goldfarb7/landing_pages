@@ -96,7 +96,7 @@ const DB= {
 function submitInfo(){
    let uname = document.getElementById('uname').value.trim();
    let umobile = document.getElementById('umobile').value.trim();
-   if(uname.length > 1 && umobile.length > 9){
+   if(uname.length > 1 && umobile.length === 10){
      //get user info here
      return true
    }
