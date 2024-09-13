@@ -19,27 +19,72 @@ function getTwoYearsAgoFormatted() {
 }
 
 
+function formatPhoneNumber(input) {
+    let value = input.value.replace(/\D/g, '');
+            
+    // Limit input to 10 digits
+    if (value.length > 10) {
+        value = value.slice(0, 10);
+    }
+
+    // Format the value as (xxx) xxx-xxxx
+    let formattedValue = value;
+    if (value.length > 6) {
+        formattedValue = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+    } else if (value.length > 3) {
+        formattedValue = `(${value.slice(0, 3)}) ${value.slice(3, 6)}`;
+    } else if (value.length > 0) {
+        formattedValue = `(${value.slice(0, 3)}`;
+    }
+
+    // Set the formatted value back into the input field
+    input.value = formattedValue;
+}
+
+
+const numberTag = `
+<div class='cinput-container'>
+      <input id='umobile' type="tel" placeholder='Mobile No.' class='cuser-input'
+       oninput="formatPhoneNumber(this,this.value)"
+      >
+</div>
+`
+
+
+const usernameTag = `
+<div class='cinput-container'>
+    <input id='uname' type='text' placeholder='Your Name' class='cuser-input'> 
+</div>
+`
+
+
 const DB= {
     default: [
         "Hi 👋",
         "I’m Jane from Claim Injury Funds.",
-        "Want to find out how much you’re entitled to? Tap Yes! 👇",
-        {
-            1: {color:"blue", next:"yes1", text:"Yes"}
-        }
-    ],
-
-    yes1: [
-        "Let me ask you a few quick questions to get started",
+        "Want to find out how much you're entitled to? Let me ask you a few quick questions to get started.",
         "<b>Were you injured in an auto accident?</b>",
+        // {
+        //     1: {color:"blue", next:"yes1", text:"Yes"}
+        // }
         {
             1: {color:"blue", next:"yes2", text:"Yes"},
             2: {color:"blue", next:"yes2", text:"No"}
         }
     ],
 
+    // yes1: [
+    //     "Let me ask you a few quick questions to get started",
+    //     "<b>Were you injured in an auto accident?</b>",
+    //     {
+    //         1: {color:"blue", next:"yes2", text:"Yes"},
+    //         2: {color:"blue", next:"yes2", text:"No"}
+    //     }
+    // ],
+
     yes2: [
-        `<b>Did your auto accident occur after ${getTwoYearsAgoFormatted()}? </b>`,
+        // `<b>Did your auto accident occur after ${getTwoYearsAgoFormatted()}? </b>`,
+        "Did your auto accident occur within the last 2 years?",
         {
             1: {color:"blue",next:"yes3", text:"Yes"},
             2: {color:"blue",next:"yes3", text:"No"}
@@ -49,16 +94,16 @@ const DB= {
     yes3: [
         "<b>Was the accident your fault?</b>",
         {
-            1: {color:"blue",next:"yes4", text:"Yes"},
-            2: {color:"blue",next:"yes4", text:"No"}
+            1: {color:"blue",next:"yes4", text:"No"},
+            2: {color:"blue",next:"yes4", text:"Yes"}
         }
     ],
 
     yes4: [
         "<b>Do you currently have a lawyer?</b>",
         {
-            1: {color:"blue",next:"yes5", text:"Yes"},
-            2: {color:"blue",next:"yes5", text:"No"},
+            1: {color:"blue",next:"yes5", text:"No"},
+            2: {color:"blue",next:"yes5", text:"Yes"},
             3: {color:"blue",next:"yes5", text:"Yes, but looking to change"}
         }
     ],
@@ -66,19 +111,21 @@ const DB= {
     yes5: [
         "<b>Fill out name and number to see how much your case is worth</b>",
         {
-            1: {color:"blue", html:"<div class='cinput-container'><input id='uname' type='text' placeholder='Your Name' class='cuser-input'> </div>"},
-            2: {color:"blue", html:"<div class='cinput-container'><input id='umobile' type='number' placeholder='Mobile No.' class='cuser-input'> </div>"},
+            1: {color:"blue", html:`${usernameTag}`},
+            2: {color:"blue", html:`${numberTag}`},
             3: {color:"blue", next:"yes6", text:"Submit"},
         }
     ],
 
     yes6: [
-        "<b>🎉Congratulations! 🎁</b>",
-        "It looks like based on the info you submitted your accident may qualify for compensation!",
-        "Tap the number below to speak to one of our friendly experts for more information on your free case evaluation.. The call takes less than 15 minutes!",
-        {
-            1: {color:"green",next:"callMe", text:"<b>+13214858331</b>"},
-        }
+        // "<b>🎉Congratulations! 🎁</b>",
+        // "It looks like based on the info you submitted your accident may qualify for compensation!",
+        // "Tap the number below to speak to one of our friendly experts for more information on your free case evaluation.. The call takes less than 15 minutes!",
+        // {
+        //     1: {color:"green",next:"callMe", text:"<b>+13214858331</b>"},
+        // }
+        "Your injury likely qualifies for compensation!",
+        "A legal representative will call in the next 5 MINUTES. Please keep your phone nearby to review your case."
     ],
 
     // yes9: [
@@ -93,12 +140,31 @@ const DB= {
 }
 
 
+function validatePhoneNumber() {
+    // Get the phone number input value
+    const phoneNumber = document.getElementById('umobile').value;
+    // Regular expression to match the format (xxx) xxx-xxxx
+    const phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
+    // Test if the phone number matches the pattern
+    if (!phonePattern.test(phoneNumber)) {
+        alert('Please enter a valid phone number in the format (xxx) xxx-xxxx 🙁');
+        return false;  // Prevent form submission if invalid
+    }
+    return true;  // Allow form submission if valid
+}
+
+
 function submitInfo(){
    let uname = document.getElementById('uname').value.trim();
-   let umobile = document.getElementById('umobile').value.trim();
-   if(uname.length > 1 && umobile.length === 10){
-     //get user info here
-     return true
+    //    let umobile = document.getElementById('umobile').value.trim();
+    if(uname.length <= 1){
+        alert('Please enter your name 🙁');
+        return false
+    }
+   else if(uname.length > 1 && validatePhoneNumber()){
+    //get user info here
+    //get phone no. here
+    return true
    }
    else{
      return false
@@ -122,7 +188,7 @@ async function chat(key, inResponseOf=null){
   if(key === "yes6"){
     let res = submitInfo();
     if(!res){
-        alert("Enter Valid Details !!!");;
+        // alert("Enter Valid Details !!!");
         return
     }
   }
