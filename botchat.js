@@ -125,7 +125,8 @@ const DB= {
         //     1: {color:"green",next:"callMe", text:"<b>+13214858331</b>"},
         // }
         "Your injury likely qualifies for compensation!",
-        "A legal representative will call in the next 5 MINUTES. Please keep your phone nearby to review your case."
+        "<b>A legal representative will call in the next 5 MINUTES.</b>",
+        " Please keep your phone nearby to review your case."
     ],
 
     // yes9: [
@@ -209,6 +210,10 @@ async function chat(key, inResponseOf=null){
                 <img class="user-img" src="https://cdn.jsdelivr.net/gh/Goldfarb7/landing_pages/user.png" alt="user image">
             </div>
         `
+
+    if(key === "yes6"){
+        await delay(2300);
+       }
   }
 
 
@@ -356,6 +361,16 @@ function gtag_report_conversion(url) {
 
 
 chat("default")
+
+
+
+
+
+
+
+
+
+
 
 
 
