@@ -3,6 +3,7 @@ var lp_mva_data = {
     "lp_campaign_id": "23230",
     "lp_supplier_id": "63311",
     "lp_key": "1g1vigpzlczgd3",
+    "lp_action": "test",
     "user_agent": navigator.userAgent || "",
     "landing_page_url": window.location.href || "",
 };
