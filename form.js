@@ -3,7 +3,6 @@ var lp_mva_data = {
     "lp_campaign_id": "23230",
     "lp_supplier_id": "63311",
     "lp_key": "1g1vigpzlczgd3",
-    "lp_action": "test",
     "user_agent": navigator.userAgent || "",
     "landing_page_url": window.location.href || "",
 };
@@ -52,9 +51,9 @@ const getFormData = ()=>{
     // trusted form URL
     userInputs['trustedform_cert_url'] = document.querySelectorAll("input[name='xxTrustedFormCertUrl']")[0].value || "";
 
-    lp_mva_data["city"] = window.user_city;
-    lp_mva_data["state"] = window.user_state;
-    lp_mva_data['ip_address'] = window.user_ip;
+    lp_mva_data["city"] = window.user_city || "";
+    lp_mva_data["state"] = window.user_state || "";
+    lp_mva_data['ip_address'] = window.user_ip || "";
 
     // getting accident date
     let accident_date = calculateInjuryDate(userInputs['accident_time']);
