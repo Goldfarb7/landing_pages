@@ -56,6 +56,11 @@ const getFormData = ()=>{
     lp_mva_data["state"] = window.user_state;
     lp_mva_data['ip_address'] = window.user_ip;
 
+    // getting accident date
+    let accident_date = calculateInjuryDate(userInputs['accident_time']);
+    console.log(`Accident Date is: ${accident_date}`);
+    userInputs["accident_date"] = accident_date;
+
     let new_data = {...lp_mva_data,...userInputs};
     console.log("New User Data: ", new_data);
 
@@ -226,6 +231,47 @@ document.getElementById("zip_code").addEventListener("input",(e)=>{
      }).catch(error => console.log(error))
    }
 })
+
+
+
+
+/**
+ * calculates rough date idea from accident time range option value
+ * @param option value choosen for: "When did the accident or injury occur?"
+ * @returns approx accident date in MM/DD/YYYY format
+ */
+function calculateInjuryDate(option) {
+  const currentDate = new Date();
+  let pastDate;
+
+  if (option.toLowerCase().includes("30 days")) {
+      pastDate = new Date();
+      pastDate.setDate(currentDate.getDate() - 30);
+  } else if (option.toLowerCase().includes("6 months")) {
+      pastDate = new Date();
+      pastDate.setMonth(currentDate.getMonth() - 6);
+  } else if (option.toLowerCase().includes("year")) {
+      if (option.toLowerCase().includes("last year")) {
+          pastDate = new Date();
+          pastDate.setFullYear(currentDate.getFullYear() - 1);
+      } else if (option.toLowerCase().includes("2 years")) {
+          pastDate = new Date();
+          pastDate.setFullYear(currentDate.getFullYear() - 2);
+      }
+  } else {
+      return "Invalid option selected.";
+  }
+
+  return formatInjuryDate(pastDate);
+}
+
+// Helper function to format the date as MM/DD/YYYY
+function formatInjuryDate(date) {
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${month}/${day}/${year}`;
+}
 
 
   
