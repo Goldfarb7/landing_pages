@@ -3,10 +3,22 @@ var lp_mva_data = {
     "lp_campaign_id": "23230",
     "lp_supplier_id": "63311",
     "lp_key": "1g1vigpzlczgd3",
-    "lp_action": "test",
     "user_agent": navigator.userAgent || "",
     "landing_page_url": window.location.href || "",
 };
+
+
+// Get the current URL (or use a specific URL)
+const url = new URL(window.location.href);
+// Use URLSearchParams to get the query parameters
+const params = new URLSearchParams(url.search);
+// Check if the 'test' parameter is present and equals 'true'
+if (params.get('test') === 'true') {
+  console.log("Testing Mode Activated !!!");
+  lp_mva_data["lp_action"] = "test"
+}
+
+
 
 //global variables for dynamic fetch output data
 window.user_city = "";
