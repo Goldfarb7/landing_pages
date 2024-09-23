@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       getFormData();
       
       //firing google ads/meta ads etc. events here
-      fbq('track', 'Contact'); //Fire Meta businees event
+      fbq('track', 'form-submit'); //Fire Meta businees event
       console.log("fire Custom Events ran successfully!!");
   })
 });
