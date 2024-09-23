@@ -31,7 +31,17 @@ function getTenDigitsFromPhoneNumber(phoneNumber) {
   // Remove all non-digit characters
   const digits = phoneNumber.replace(/\D/g, '');
   // Return only the last 10 digits (if it's longer than 10)
-  return digits.slice(-10);
+  let ten = digits.slice(-10);
+  return ten
+}
+
+
+function validateEmail(email) {
+  // Define the regular expression for validating email
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  // Test the email against the pattern
+  return emailPattern.test(email);
 }
 
 
@@ -54,9 +64,19 @@ const getFormData = ()=>{
     userInputs["first_name"]  = document.getElementById("first_name").value;
     userInputs["last_name"]  = document.getElementById("last_name").value;
     // for mobile No.
-    userInputs["phone"] = getTenDigitsFromPhoneNumber(document.getElementById("phone_number").value);
+    let phone_no = getTenDigitsFromPhoneNumber(document.getElementById("phone_number").value);
+    if(ten.length != 10){
+      alert("Invalid Phone No.");
+      return
+    }
+    userInputs["phone"] = phone_no;
     // for email
-    userInputs["email"] = document.getElementById("email").value;
+    let email_id = document.getElementById("email").value;
+    if(validateEmail(email_id) === false){
+       alert('Invalid Email ID.');
+       return
+    }
+    userInputs["email"] = email_id;
     // zipcode
     userInputs['zip_code'] = Number(document.getElementById('zip_code').value) || "";
     // comments
