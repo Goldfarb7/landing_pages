@@ -86,6 +86,10 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("button-substitute").addEventListener("click",(e)=>{
       e.preventDefault();
       getFormData();
+      
+      //firing google ads/meta ads etc. events here
+      fbq('track', 'Contact'); //Fire Meta businees event
+      console.log("fire Custom Events ran successfully!!");
   })
 });
 
