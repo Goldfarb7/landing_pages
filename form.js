@@ -60,7 +60,7 @@ const getFormData = ()=>{
     // zipcode
     userInputs['zip_code'] = Number(document.getElementById('zip_code').value) || "";
     // comments
-    userInputs['comments'] = document.getElementById("comments").value || "";
+    userInputs['comments'] = document.getElementById("comments").value || "NA";
     // trusted form URL
     userInputs['trustedform_cert_url'] = document.querySelectorAll("input[name='xxTrustedFormCertUrl']")[0].value || "";
 
