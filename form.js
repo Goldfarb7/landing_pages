@@ -129,6 +129,7 @@ const getFormData = ()=>{
 
     // sending data to LeadProsper
     sendDataToLeadProsper(new_data);
+    return true
 
 };
 
@@ -158,11 +159,14 @@ function faildSubmit(){
 document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("button-substitute").addEventListener("click",(e)=>{
       e.preventDefault();
-      getFormData();
+      let res_status = getFormData();
       
       //firing google ads/meta ads etc. events here
-      fbq('track', 'form-submit'); //Fire Meta businees event
-      console.log("fire Custom Events ran successfully!!");
+      if(res_status){
+        fbq('track', 'form-submit'); //Fire Meta businees event
+        console.log("fire Custom Events ran successfully!!");
+      }
+      
   })
 });
 
@@ -379,3 +383,4 @@ function formatInjuryDate(date) {
   
 
   
+
