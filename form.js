@@ -65,7 +65,7 @@ const getFormData = ()=>{
     userInputs["last_name"]  = document.getElementById("last_name").value;
     // for mobile No.
     let phone_no = getTenDigitsFromPhoneNumber(document.getElementById("phone_number").value);
-    if(ten.length != 10){
+    if(phone_no.length != 10){
       alert("Invalid Phone No.");
       return
     }
@@ -319,3 +319,4 @@ function formatInjuryDate(date) {
   
 
   
+
