@@ -60,16 +60,32 @@ const getFormData = ()=>{
         console.log(`${checkbox.name} > ${checkbox.value}`);
         userInputs[checkbox.name] = checkbox.value;
     });
+
+
     // for name
-    userInputs["first_name"]  = document.getElementById("first_name").value;
-    userInputs["last_name"]  = document.getElementById("last_name").value;
+    let first_name = document.getElementById("first_name").value || "";
+    if(first_name.length === 0){
+      alert("Enter First name !!");
+      return
+    }
+    let last_name = document.getElementById("last_name").value || "";
+    if(last_name.length === 0){
+      alert("Enter Last name !!");
+      return
+    }
+    userInputs["first_name"]  = first_name;
+    userInputs["last_name"]  = last_name;
+
+
     // for mobile No.
     let phone_no = getTenDigitsFromPhoneNumber(document.getElementById("phone_number").value);
-    if(phone_no.length != 10){
+    if(phone_no.toString().length != 10){
       alert("Invalid Phone No.");
       return
     }
     userInputs["phone"] = phone_no;
+
+
     // for email
     let email_id = document.getElementById("email").value;
     if(validateEmail(email_id) === false){
@@ -77,10 +93,20 @@ const getFormData = ()=>{
        return
     }
     userInputs["email"] = email_id;
+
+
     // zipcode
-    userInputs['zip_code'] = Number(document.getElementById('zip_code').value) || "";
+    let zip_code = Number(document.getElementById('zip_code').value) || 0;
+    if(zip_code.toString().length != 5){
+      alert("Invalid Zip Code !!");
+      return
+    }
+    userInputs['zip_code'] = zip_code;
+
+
     // comments
     userInputs['comments'] = document.getElementById("comments").value || "NA";
+    
     // trusted form URL
     userInputs['trustedform_cert_url'] = document.querySelectorAll("input[name='xxTrustedFormCertUrl']")[0].value || "";
 
@@ -319,4 +345,5 @@ function formatInjuryDate(date) {
   
 
   
+
 
