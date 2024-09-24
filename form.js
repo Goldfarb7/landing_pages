@@ -66,11 +66,13 @@ const getFormData = ()=>{
     let first_name = document.getElementById("first_name").value || "";
     if(first_name.length === 0){
       alert("Enter First name !!");
+      faildSubmit();
       return
     }
     let last_name = document.getElementById("last_name").value || "";
     if(last_name.length === 0){
       alert("Enter Last name !!");
+      faildSubmit();
       return
     }
     userInputs["first_name"]  = first_name;
@@ -81,6 +83,7 @@ const getFormData = ()=>{
     let phone_no = getTenDigitsFromPhoneNumber(document.getElementById("phone_number").value);
     if(phone_no.toString().length != 10){
       alert("Invalid Phone No.");
+      faildSubmit();
       return
     }
     userInputs["phone"] = phone_no;
@@ -90,6 +93,7 @@ const getFormData = ()=>{
     let email_id = document.getElementById("email").value;
     if(validateEmail(email_id) === false){
        alert('Invalid Email ID.');
+       faildSubmit();
        return
     }
     userInputs["email"] = email_id;
@@ -99,6 +103,7 @@ const getFormData = ()=>{
     let zip_code = Number(document.getElementById('zip_code').value) || 0;
     if(zip_code.toString().length != 5){
       alert("Invalid Zip Code !!");
+      faildSubmit();
       return
     }
     userInputs['zip_code'] = zip_code;
@@ -106,7 +111,7 @@ const getFormData = ()=>{
 
     // comments
     userInputs['comments'] = document.getElementById("comments").value || "NA";
-    
+
     // trusted form URL
     userInputs['trustedform_cert_url'] = document.querySelectorAll("input[name='xxTrustedFormCertUrl']")[0].value || "";
 
@@ -126,6 +131,21 @@ const getFormData = ()=>{
     sendDataToLeadProsper(new_data);
 
 };
+
+
+function faildSubmit(){
+  //hides success submit div node & reshow form
+  let element = document.querySelector('[data-w-id="1daf2b8d-a1fb-784d-c811-f26d4cf4c00e"]');
+  element.style.display="flex";
+
+  let see_el = document.querySelector('[data-w-id="80dd666d-8bb1-cd89-4c30-20cc889c75b7"]');
+  see_el.style.display="block";
+
+  let success_el = document.querySelector('[data-w-id="a3788118-fab0-ad54-2933-2d1839416e43"]');
+  success_el.style.display="None";
+  let wait_el = document.querySelector('[data-w-id="2dde87ef-9588-53f3-aee7-52e342da28fc"]');
+  wait_el.style.display = "none";
+}
 
 
 document.addEventListener("DOMContentLoaded",()=>{
@@ -345,5 +365,3 @@ function formatInjuryDate(date) {
   
 
   
-
-
