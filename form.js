@@ -134,17 +134,24 @@ const getFormData = ()=>{
 
 
 function faildSubmit(){
-  //hides success submit div node & reshow form
-  let element = document.querySelector('[data-w-id="1daf2b8d-a1fb-784d-c811-f26d4cf4c00e"]');
-  element.style.display="flex";
+  try{
+    //hides success submit div node & reshow form
+    let element = document.querySelector('[data-w-id="1daf2b8d-a1fb-784d-c811-f26d4cf4c00e"]');
+    element.style.display="flex";
 
-  let see_el = document.querySelector('[data-w-id="80dd666d-8bb1-cd89-4c30-20cc889c75b7"]');
-  see_el.style.display="block";
+    let see_el = document.querySelector('[data-w-id="80dd666d-8bb1-cd89-4c30-20cc889c75b7"]');
+    see_el.style.display="block";
 
-  let success_el = document.querySelector('[data-w-id="a3788118-fab0-ad54-2933-2d1839416e43"]');
-  success_el.style.display="None";
-  let wait_el = document.querySelector('[data-w-id="2dde87ef-9588-53f3-aee7-52e342da28fc"]');
-  wait_el.style.display = "none";
+    let success_el = document.querySelector('[data-w-id="a3788118-fab0-ad54-2933-2d1839416e43"]');
+    success_el.style.display="None";
+    let wait_el = document.querySelector('[data-w-id="2dde87ef-9588-53f3-aee7-52e342da28fc"]');
+    wait_el.style.display = "none";
+  }
+  catch(err){
+    console.error(err);
+    location.reload();
+  }
+
 }
 
 
@@ -331,17 +338,24 @@ function calculateInjuryDate(option) {
       pastDate.setDate(currentDate.getDate() - 30);
   } else if (option.toLowerCase().includes("6 months")) {
       pastDate = new Date();
-      pastDate.setMonth(currentDate.getMonth() - 6);
+      let randomNum1 = Math.floor(Math.random() * 3) + 3;
+      pastDate.setMonth(currentDate.getMonth() - randomNum1);
   } else if (option.toLowerCase().includes("year")) {
       if (option.toLowerCase().includes("last year")) {
           pastDate = new Date();
           pastDate.setFullYear(currentDate.getFullYear() - 1);
+          let randomNum2 = Math.floor(Math.random() * 5) + 6;
+          pastDate.setMonth(randomNum2);
       } else if (option.toLowerCase().includes("2 years")) {
           pastDate = new Date();
-          pastDate.setFullYear(currentDate.getFullYear() - 2);
+          // pastDate.setFullYear(currentDate.getFullYear() - 2);
+          const randomNum = Math.floor(Math.random() * 4) + 16;
+          pastDate.setMonth(currentDate.getMonth() - randomNum);
       }
   } else {
-      return "Invalid option selected.";
+      // return "Invalid option selected.";
+      alert("something went wrong!!");
+      location.reload(true);
   }
 
   return formatInjuryDate(pastDate);
@@ -353,7 +367,7 @@ function formatInjuryDate(date) {
   const day = String(date.getDate()).padStart(2, '0');
   const year = date.getFullYear();
   // changing date
-  let new_day = Math.floor(Math.random() * 30) + 1;
+  let new_day = (Math.floor(Math.random() * 30) + 1).toString().padStart(2,"0");
   return `${month}/${new_day}/${year}`;
 }
 
